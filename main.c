@@ -32,7 +32,12 @@ int main(int argc, char* argv[])
         goto cleanup;
     }
 
-    
+    if(setsockopt(raw_socket, SOL_SOCKET, SO_BINDTODEVICE, interface_name, strlen(interface_name)) == -1 )
+    {
+        perror("setsockopt");
+        error_code = 2;
+        goto cleanup;
+    }
 
 cleanup:
     if(raw_socket != -1 && close(raw_socket) == -1)
