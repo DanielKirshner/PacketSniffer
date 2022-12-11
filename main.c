@@ -32,17 +32,30 @@ int main(int argc, char* argv[])
         goto cleanup;
     }
 
-    if(setsockopt(raw_socket, SOL_SOCKET, SO_BINDTODEVICE, interface_name, strlen(interface_name)) == -1 )
+    if(setsockopt(raw_socket, SOL_SOCKET, SO_BINDTODEVICE, interface_name, strlen(interface_name)) == -1)
     {
         perror("setsockopt");
         error_code = 2;
         goto cleanup;
     }
 
-cleanup:
-    if(raw_socket != -1 && close(raw_socket) == -1)
+    while(1)
     {
-        perror("close");
+        data_size = recvfrom(raw_socket, packet_buffer, PACKET_BUFFER_SIZE, 0, NULL, NULL);
+        if(data_size == -1)
+        {
+            perror("recvfrom");
+            error_code = 3;
+            goto cleanup;
+        }
+        // Handle packet
+        printf("%lu\n", data_size);
     }
-    return error_code;
+    
+    cleanup:
+        if(raw_socket != -1 && close(raw_socket) == -1)
+        {
+            perror("close");
+        }
+        return error_code;
 }
