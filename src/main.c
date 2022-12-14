@@ -2,10 +2,12 @@
 
 #include <stdio.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
 	ErrorCode error_code = ERROR_SUCCESS;
 
-	if (argc != 2) {
+	if (argc != 2)
+    {
 		printf("Usage: %s [IF_NAME]\n", argv[0]);
 		error_code = ERROR_BAD_ARGUMENTS;
 		goto cleanup;
