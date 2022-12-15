@@ -7,6 +7,11 @@ I have been tested the packet sniffer on [Ubuntu 22.04](https://releases.ubuntu.
 ## Requirements
 A working network interface.
 ## Setup
+Install net-tools:
+```
+sudo apt-get update
+sudo apt-get install -y net-tools
+```
 Clone my project:
 ```
 git clone https://github.com/DanielKirshner/PacketSniffer
