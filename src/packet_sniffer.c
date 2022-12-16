@@ -60,14 +60,14 @@ ErrorCode sniff_packets(const char* interface_name)
 	if (raw_socket == -1)
     {
 		perror("socket");
-		error_code = ERROR_API;
+		error_code = ERROR_SOCKET_INITIALIZE;
 		goto cleanup;
 	}
 
 	if (setsockopt(raw_socket, SOL_SOCKET, SO_BINDTODEVICE, interface_name, strlen(interface_name)) == -1)
     {
 		perror("setsockopt");
-		error_code = ERROR_API;
+		error_code = ERROR_SOCKET_SET;
 		goto cleanup;
 	}
 
@@ -77,7 +77,7 @@ ErrorCode sniff_packets(const char* interface_name)
 		if (data_size == -1)
         {
 			perror("recvfrom");
-			error_code = ERROR_API;
+			error_code = ERROR_SOCKET_MESSAGE;
 			goto cleanup;
 		}
 
